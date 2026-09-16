@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Florescer - Apoio Emocional</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --amarelo-claro: #fff4c7;
+            --amarelo: #f6d875;
+            --amarelo-escuro: #d9ad38;
+            --creme: #fffaf0;
+            --verde: #a8c7a0;
+            --verde-escuro: #557a55;
+            --rosa: #f4c6c6;
+            --marrom: #5f5141;
+            --branco: #ffffff;
+            --sombra: rgba(95, 81, 65, 0.12);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--creme);
+            color: var(--marrom);
+            line-height: 1.6;
+        }
+
+        /* ---------- CABEÇALHO ---------- */
+
+        header {
+            background: var(--amarelo-claro);
+            padding: 20px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--sombra);
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: var(--verde-escuro);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--marrom);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--verde-escuro);
+        }
+
+        /* ---------- HERO ---------- */
+
+        .hero {
+            min-height: 75vh;
+            padding: 80px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--amarelo-claro),
+                    #fff8df,
+                    #f7eadf
+                );
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--verde-escuro);
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 14px 25px;
+            background: var(--verde-escuro);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .botao:hover {
+            background: #426342;
+            transform: translateY(-2px);
+        }
+
+        .flor {
+            width: 300px;
+            height: 300px;
+            background: var(--amarelo);
+            border-radius: 50% 40% 50% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            transform: rotate(8deg);
+            box-shadow: 20px 20px 0 var(--rosa);
+        }
+
+        /* ---------- SEÇÕES ---------- */
+
+        section {
+            padding: 80px 8%;
+        }
+
+        .titulo-secao {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .titulo-secao h2 {
+            font-size: 2.3rem;
+            color: var(--verde-escuro);
+            margin-bottom: 10px;
+        }
+
+        .titulo-secao p {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        /* ---------- APOIO ---------- */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--branco);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px var(--sombra);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icone {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: var(--verde-escuro);
+            margin-bottom: 10px;
+        }
+
+        /* ---------- GERADOR ---------- */
+
+        #mensagem {
+            background: var(--amarelo-claro);
+        }
+
+        .gerador {
+            max-width: 750px;
+            margin: auto;
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px var(--sombra);
+        }
+
+        #frase {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--verde-escuro);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* ---------- MOOD TRACKER ---------- */
+
+        .mood-container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px var(--sombra);
+            text-align: center;
+        }
+
+        .moods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .mood {
+            border: 2px solid transparent;
+            background: #fff8df;
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 100px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            color: var(--marrom);
+        }
+
+        .mood span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .mood:hover,
+        .mood.selecionado {
+            border-color: var(--verde-escuro);
+            background: #eef6e9;
+            transform: scale(1.05);
+        }
+
+        #resultadoHumor {
+            min-height: 30px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--verde-escuro);
+        }
+
+        .historico {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .historico h3 {
+            margin-bottom: 15px;
+            color: var(--verde-escuro);
+        }
+
+        .registro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: var(--amarelo-claro);
+            border-radius: 10px;
+        }
+
+        /* ---------- AJUDA ---------- */
+
+        #ajuda {
+            background: #f3eadf;
+        }
+
+        .ajuda-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .ajuda-card {
+            background: white;
+            padding: 30px;
+            border-left: 6px solid var(--amarelo-escuro);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--sombra);
+        }
+
+        .ajuda-card h3 {
+            color: var(--verde-escuro);
+            margin-bottom: 8px;
+        }
+
+        .numero {
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--verde-escuro);
+            margin-top: 10px;
+        }
+
+        /* ---------- ALERTA ---------- */
+
+        .alerta {
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            background: #fff1d6;
+            border: 1px solid #efd08a;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .alerta strong {
+            color: #8a6720;
+        }
+
+        /* ---------- RODAPÉ ---------- */
+
+        footer {
+            background: var(--verde-escuro);
+            color: white;
+            text-align: center;
+            padding: 30px 8%;
+        }
+
+        footer p {
+            max-width: 900px;
+            margin: 8px auto;
+        }
+
+        .aviso {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+
+        /* ---------- RESPONSIVIDADE ---------- */
+
+        @media (max-width: 800px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 60px;
+            }
+
+            .flor {
+                width: 220px;
+                height: 220px;
+                font-size: 5rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .ajuda-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+
+    <header>
+        <div class="logo">🌼 Florescer</div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#mensagem">Mensagens</a>
+            <a href="#humor">Meu humor</a>
+            <a href="#ajuda">Buscar ajuda</a>
+        </nav>
+    </header>
+
+
+    <!-- INÍCIO -->
+
+    <main>
+
+        <section class="hero" id="inicio">
+
+            <div class="hero-text">
+
+                <h1>Você importa.</h1>
+
+                <p>
+                    Um espaço digital de acolhimento, reflexão e valorização
+                    da vida. Pequenos passos também são importantes.
+                </p>
+
+                <a href="#humor" class="botao">
+                    Como estou me sentindo?
+                </a>
+
+            </div>
+
+            <div class="flor">
+                🌻
+            </div>
+
+        </section>
+
+
+        <!-- INTRODUÇÃO -->
+
+        <section>
+
+            <div class="titulo-secao">
+
+                <h2>Um momento para você</h2>
+
+                <p>
+                    Cuidar das emoções também faz parte do cuidado com a saúde.
+                    Use este espaço para refletir sobre como você está e encontrar
+                    informações sobre onde buscar apoio.
+                </p>
+
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <div class="icone">💛</div>
+
+                    <h3>Valorize sua vida</h3>
+
+                    <p>
+                        Seus sentimentos são importantes. Permita-se reconhecer
+                        o que está sentindo e procure apoio quando precisar.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="icone">🌱</div>
+
+                    <h3>Um passo de cada vez</h3>
+
+                    <p>
+                        Nem todos os dias precisam ser perfeitos. Pequenas
+                        atitudes de autocuidado podem fazer parte da rotina.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="icone">🤝</div>
+
+                    <h3>Você não precisa passar por tudo sozinho</h3>
+
+                    <p>
+                        Conversar com pessoas de confiança e buscar ajuda
+                        profissional pode ser um importante passo.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GERADOR DE MENSAGENS -->
+
+        <section id="mensagem">
+
+            <div class="titulo-secao">
+
+                <h2>💬 Uma mensagem para você</h2>
+
+                <p>
+                    Clique no botão para receber uma mensagem de incentivo.
+                </p>
+
+            </div>
+
+            <div class="gerador">
+
+                <div id="frase">
+                    Clique no botão abaixo para receber uma mensagem.
+                </div>
+
+                <button class="botao" onclick="gerarMensagem()">
+                    Gerar mensagem 🌼
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- MOOD TRACKER -->
+
+        <section id="humor">
+
+            <div class="titulo-secao">
+
+                <h2>😊 Como você está hoje?</h2>
+
+                <p>
+                    Escolha uma opção que represente como você está se sentindo.
+                    Não existe resposta certa ou errada.
+                </p>
+
+            </div>
+
+            <div class="mood-container">
+
+                <div class="moods">
+
+                    <button class="mood" data-humor="Muito feliz">
+                        <span>😄</span>
+                        Muito feliz
+                    </button>
+
+                    <button class="mood" data-humor="Bem">
+                        <span>🙂</span>
+                        Bem
+                    </button>
+
+                    <button class="mood" data-humor="Neutro">
+                        <span>😐</span>
+                        Neutro
+                    </button>
+
+                    <button class="mood" data-humor="Triste">
+                        <span>😔</span>
+                        Triste
+                    </button>
+
+                    <button class="mood" data-humor="Muito triste">
+                        <span>😢</span>
+                        Muito triste
+                    </button>
+
+                </div>
+
+                <div id="resultadoHumor"></div>
+
+                <div class="historico">
+
+                    <h3>📅 Seus últimos registros</h3>
+
+                    <div id="listaHistorico">
+                        Nenhum registro ainda.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BUSCAR AJUDA -->
+
+        <section id="ajuda">
+
+            <div class="titulo-secao">
+
+                <h2>🆘 Onde buscar ajuda?</h2>
+
+                <p>
+                    Se você estiver passando por um momento difícil, considere
+                    conversar com alguém de confiança e buscar atendimento
+                    profissional.
+                </p>
+
+            </div>
+
+
+            <div class="alerta">
+
+                <strong>
+                    Se houver risco imediato de você se machucar ou de outra
+                    pessoa se machucar, procure um serviço de emergência ou
+                    peça ajuda imediatamente.
+                </strong>
+
+            </div>
+
+
+            <div class="ajuda-grid">
+
+                <div class="ajuda-card">
+
+                    <h3>🏥 CAPS</h3>
+
+                    <p>
+                        Os Centros de Atenção Psicossocial oferecem atendimento
+                        em saúde mental pelo SUS, de acordo com o tipo de serviço
+                        disponível na região.
+                    </p>
+
+                    <p>
+                        Procure informações na Secretaria de Saúde do seu
+                        município para encontrar o CAPS mais próximo.
+                    </p>
+
+                </div>
+
+
+                <div class="ajuda-card">
+
+                    <h3>🏥 UBS / Posto de Saúde</h3>
+
+                    <p>
+                        As Unidades Básicas de Saúde podem ser uma porta de
+                        entrada para o atendimento pelo SUS e podem orientar
+                        sobre os serviços disponíveis na sua região.
+                    </p>
+
+                </div>
+
+
+                <div class="ajuda-card">
+
+                    <h3>☎️ CVV — Centro de Valorização da Vida</h3>
+
+                    <p>
+                        O CVV oferece apoio emocional e prevenção do suicídio
+                        por meio de atendimento voluntário e sigiloso.
+                    </p>
+
+                    <span class="numero">188</span>
+
+                </div>
+
+
+                <div class="ajuda-card">
+
+                    <h3>🚑 SAMU</h3>
+
+                    <p>
+                        Em situações de emergência médica, o Serviço de
+                        Atendimento Móvel de Urgência pode ser acionado.
+                    </p>
+
+                    <span class="numero">192</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        <p>
+            🌼 <strong>Florescer — Apoio e valorização da vida</strong>
+        </p>
+
+        <p class="aviso">
+            Este site foi desenvolvido exclusivamente para fins acadêmicos.
+            As informações apresentadas possuem caráter educativo e não
+            substituem avaliação, diagnóstico, acompanhamento ou tratamento
+            realizado por profissionais de saúde.
+        </p>
+
+        <p class="aviso">
+            Em situações de emergência, procure um serviço de emergência
+            ou acione o serviço adequado da sua região.
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        /* ==========================================
+           GERADOR DE MENSAGENS
+        ========================================== */
+
+        const mensagens = [
+
+            "Você não precisa resolver tudo hoje. Um passo de cada vez já é progresso.",
+
+            "Seja gentil consigo mesmo. Você está fazendo o melhor que consegue.",
+
+            "Dias difíceis passam. Permita-se pedir ajuda quando precisar.",
+
+            "Sua história continua sendo escrita. O momento atual não define toda a sua vida.",
+
+            "Você merece cuidado, respeito e acolhimento.",
+
+            "Não há vergonha em precisar de apoio. Pedir ajuda também é um ato de coragem.",
+
+            "Respire. Faça uma pausa. Você pode seguir um pequeno passo de cada vez.",
+
+            "Se hoje estiver difícil, tente não enfrentar tudo sozinho. Converse com alguém de confiança.",
+
+            "Existem pessoas e serviços preparados para ouvir você.",
+
+            "Cuidar de si não é egoísmo. Sua vida tem valor."
+        ];
+
+
+        function gerarMensagem() {
+
+            const elemento = document.getElementById("frase");
+
+            const numero =
+                Math.floor(Math.random() * mensagens.length);
+
+            elemento.style.opacity = "0";
+
+            setTimeout(() => {
+
+                elemento.textContent = mensagens[numero];
+
+                elemento.style.opacity = "1";
+
+            }, 200);
+
+        }
+
+
+        /* ==========================================
+           MOOD TRACKER
+        ========================================== */
+
+        const botoesHumor =
+            document.querySelectorAll(".mood");
+
+        const resultado =
+            document.getElementById("resultadoHumor");
+
+        const listaHistorico =
+            document.getElementById("listaHistorico");
+
+
+        function obterHistorico() {
+
+            return JSON.parse(
+                localStorage.getItem("florescerHumores")
+            ) || [];
+
+        }
+
+
+        function salvarHumor(humor) {
+
+            const historico = obterHistorico();
+
+            const registro = {
+
+                humor: humor,
+
+                data: new Date().toLocaleDateString(
+                    "pt-BR"
+                ),
+
+                hora: new Date().toLocaleTimeString(
+                    "pt-BR",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                )
+
+            };
+
+            historico.unshift(registro);
+
+            /*
+                Mantém somente os 7 registros mais recentes.
+            */
+
+            const ultimosRegistros =
+                historico.slice(0, 7);
+
+            localStorage.setItem(
+                "florescerHumores",
+                JSON.stringify(ultimosRegistros)
+            );
+
+            mostrarHistorico();
+
+        }
+
+
+        function mostrarHistorico() {
+
+            const historico = obterHistorico();
+
+            if (historico.length === 0) {
+
+                listaHistorico.innerHTML =
+                    "Nenhum registro ainda.";
+
+                return;
+
+            }
+
+            listaHistorico.innerHTML = "";
+
+            historico.forEach(registro => {
+
+                const div =
+                    document.createElement("div");
+
+                div.classList.add("registro");
+
+                div.innerHTML = `
+                    <span>😊 ${registro.humor}</span>
+                    <small>
+                        ${registro.data} às ${registro.hora}
+                    </small>
+                `;
+
+                listaHistorico.appendChild(div);
+
+            });
+
+        }
+
+
+        botoesHumor.forEach(botao => {
+
+            botao.addEventListener("click", () => {
+
+                botoesHumor.forEach(b =>
+                    b.classList.remove("selecionado")
+                );
+
+                botao.classList.add("selecionado");
+
+                const humor =
+                    botao.dataset.humor;
+
+                resultado.textContent =
+                    `Você registrou: ${humor}. Obrigado por reservar um momento para você. 💛`;
+
+                salvarHumor(humor);
+
+            });
+
+        });
+
+
+        /*
+            Carrega o histórico quando a página abre.
+        */
+
+        mostrarHistorico();
+
+    </script>
+
+</body>
+</html>
